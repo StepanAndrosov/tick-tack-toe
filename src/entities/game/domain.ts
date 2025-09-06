@@ -9,9 +9,9 @@ export type GameEntity = GameIdle | GameInProgress | GameOver | GameOverDraw
 
 export type GameIdle = {
     id: string
+    status: 'idle'
     creator: Player
     players: Player[]
-    status: 'idle'
 }
 
 export type GameInProgress = {
