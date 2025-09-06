@@ -1,5 +1,6 @@
 import { Game, Prisma, User } from "@/generated/prisma";
 import { prisma } from "@/shared/lib/db";
+import { removePassword } from "@/shared/lib/password";
 import z from "zod";
 import { GameEntity, GameIdle, GameOver } from "../domain";
 
@@ -16,10 +17,10 @@ async function gamesList(where?: Prisma.GameWhereInput) {
 }
 
 function dbGameToGameEntity(game: Game & { players: User[], winner?: User | null }): GameEntity {
-
+    const players = game.players.map(removePassword)
     switch (game.status) {
         case 'idle': {
-            const [creator] = game.players
+            const [creator] = players
             if (!creator) throw new Error('creator should be in the game')
             return {
                 id: game.id,
@@ -32,7 +33,7 @@ function dbGameToGameEntity(game: Game & { players: User[], winner?: User | null
         case 'game_over_draw': {
             return {
                 id: game.id,
-                players: game.players,
+                players,
                 status: game.status,
                 field: fieldSchema.parse(game.field)
 
@@ -44,7 +45,7 @@ function dbGameToGameEntity(game: Game & { players: User[], winner?: User | null
             }
             return {
                 id: game.id,
-                players: game.players,
+                players,
                 status: game.status,
                 field: fieldSchema.parse(game.field),
                 winner: game.winner
