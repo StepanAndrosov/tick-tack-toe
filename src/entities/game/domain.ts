@@ -1,6 +1,7 @@
+import { GameId, UserId } from "@/kernel/ids"
 
 export type Player = {
-    id: string
+    id: UserId
     login: string
     rating: number
 }
@@ -8,21 +9,21 @@ export type Player = {
 export type GameEntity = GameIdle | GameInProgress | GameOver | GameOverDraw
 
 export type GameIdle = {
-    id: string
+    id: GameId
     status: 'idle'
     creator: Player
     players: Player[]
 }
 
 export type GameInProgress = {
-    id: string
+    id: GameId
     players: Player[]
     field: Field
     status: 'in_progress'
 }
 
 export type GameOver = {
-    id: string
+    id: GameId
     players: Player[]
     field: Field
     status: 'game_over'
@@ -30,7 +31,7 @@ export type GameOver = {
 }
 
 export type GameOverDraw = {
-    id: string
+    id: GameId
     players: Player[]
     field: Field
     status: 'game_over_draw'
