@@ -8,23 +8,29 @@ async function main() {
       login: 'username',
       passwordHash: 'passwordhash',
       rating: 1000,
-
     }
   })
-  await prisma.game.create({
+  const user2 = await prisma.user.create({
     data: {
-      status: 'idle',
-      players: { connect: { id: user.id } },
-      field: Array(9).fill(null)
+      login: 'username2',
+      passwordHash: 'passwordhash2',
+      rating: 1000,
     }
   })
-  await prisma.game.create({
-    data: {
-      status: 'idle',
-      players: { connect: { id: user.id } },
-      field: Array(9).fill(null)
-    }
-  })
+  // await prisma.game.create({
+  //   data: {
+  //     status: 'idle',
+  //     players: { connect: { id: user.id } },
+  //     field: Array(9).fill(null)
+  //   }
+  // })
+  // await prisma.game.create({
+  //   data: {
+  //     status: 'idle',
+  //     players: { connect: { id: user2.id } },
+  //     field: Array(9).fill(null)
+  //   }
+  // })
 }
 
 main()
