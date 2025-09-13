@@ -9,7 +9,7 @@ export const createUser = async ({ login, password }: { login: string, password:
     const userWithLogin = await userRepository.getUser({ login })
 
     if (userWithLogin) {
-        return left('user-login-exists')
+        return left('user-login-exists' as const)
     }
 
     const { hash, salt } = await passwordService.hashPassword(password)
