@@ -12,3 +12,5 @@ export type SessionEntity = {
     id: UserId
     login: string
 }
+
+export const DEFAULT_RATING = 1000
