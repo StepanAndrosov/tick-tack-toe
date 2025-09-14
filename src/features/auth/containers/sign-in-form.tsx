@@ -21,7 +21,7 @@ export function SignInForm() {
       action={action}
       fields={<AuthFields />}
       actions={<SubmitButton isPending={isPending} label="Sign In" />}
-      error={<ErrorMessage error={""} />}
+      error={<ErrorMessage error={formState.errors?._errors} />}
       link={
         <BottomLink text="Don't have an account?" linkText="Sign up" url={""} />
       }

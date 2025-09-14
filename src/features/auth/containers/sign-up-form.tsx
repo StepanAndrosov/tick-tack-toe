@@ -21,12 +21,12 @@ export function SignUpForm() {
       action={action}
       fields={<AuthFields />}
       actions={<SubmitButton isPending={isPending} label="Sign Up" />}
-      error={<ErrorMessage error={''} />}
+      error={<ErrorMessage error={formState.errors?._errors} />}
       link={
         <BottomLink
           text="Already have an account?"
           linkText="Sign in"
-          url={''}
+          url={"/sign-in"}
         />
       }
     />

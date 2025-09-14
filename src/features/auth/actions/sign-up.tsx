@@ -1,7 +1,6 @@
 "use server";
 
 import { createUser, sessionService } from "@/entities/user/server";
-import { left, mapLeft } from "@/shared/lib/either";
 import { redirect } from "next/navigation";
 import z from "zod";
 
@@ -25,19 +24,32 @@ export const signUpAction = async (state: unknown, formData: FormData) => {
   const result = formDataSchema.safeParse(data);
 
   if (!result.success) {
-    return left(`Validation error: ${result.error.message}`);
+    const formatedErrors = result.error.format();
+    return {
+      formData,
+      errors: {
+        login: formatedErrors.login?._errors.join(", "),
+        password: formatedErrors.password?._errors.join(", "),
+        _errors: formatedErrors._errors.join(", "),
+      },
+    };
   }
 
-  const createUsetResult = await createUser(result.data);
+  const createUserResult = await createUser(result.data);
 
-  if (createUsetResult.type === "right") {
-    await sessionService.addSession(createUsetResult.value);
+  if (createUserResult.type === "right") {
+    await sessionService.addSession(createUserResult.value);
 
     redirect("/");
   }
-  return mapLeft(createUsetResult, (error) => {
-    return {
-      "user-login-exists": "User exists",
-    }[error];
-  });
+  const errors = {
+    "user-login-exists": "Пользователь с таким login существует",
+  }[createUserResult.error];
+
+  return {
+    formData,
+    errors: {
+      _errors: errors,
+    },
+  };
 };
