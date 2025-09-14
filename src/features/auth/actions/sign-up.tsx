@@ -1,5 +1,8 @@
-import { createUser } from "@/entities/user/server";
+"use server";
+
+import { createUser, sessionService } from "@/entities/user/server";
 import { left, mapLeft } from "@/shared/lib/either";
+import { redirect } from "next/navigation";
 import z from "zod";
 
 export type SignUpFormState = {
@@ -22,11 +25,16 @@ export const signUpAction = async (state: unknown, formData: FormData) => {
   const result = formDataSchema.safeParse(data);
 
   if (!result.success) {
-    return left(`${result.error.message}`);
+    return left(`Validation error: ${result.error.message}`);
   }
 
   const createUsetResult = await createUser(result.data);
 
+  if (createUsetResult.type === "right") {
+    await sessionService.addSession(createUsetResult.value);
+
+    redirect("/");
+  }
   return mapLeft(createUsetResult, (error) => {
     return {
       "user-login-exists": "User exists",

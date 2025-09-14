@@ -23,5 +23,5 @@ export const createUser = async ({ login, password }: { login: string, password:
     })
 
     return right(user)
+}
 
-}   
