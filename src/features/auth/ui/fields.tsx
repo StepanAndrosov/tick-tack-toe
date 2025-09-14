@@ -26,7 +26,9 @@ export function AuthFields({
           required
           defaultValue={formData?.get("login")?.toString()}
         />
-        {errors?.login && <div>{errors.login}</div>}
+        {errors?.login && (
+          <div className="text-sm text-destructive">{errors.login}</div>
+        )}
       </div>
       <div className="space-y-2">
         <Label htmlFor={passwordId}>Password</Label>
@@ -38,7 +40,9 @@ export function AuthFields({
           required
           defaultValue={formData?.get("password")?.toString()}
         />
-        {errors?.password && <div>{errors.password}</div>}
+        {errors?.password && (
+          <div className="text-sm text-destructive">{errors.password}</div>
+        )}
       </div>
     </>
   );
