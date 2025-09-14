@@ -19,7 +19,7 @@ export function SignUpForm() {
       title="Sign Up"
       description="Create your account to get started"
       action={action}
-      fields={<AuthFields />}
+      fields={<AuthFields {...formState} />}
       actions={<SubmitButton isPending={isPending} label="Sign Up" />}
       error={<ErrorMessage error={formState.errors?._errors} />}
       link={
