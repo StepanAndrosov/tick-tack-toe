@@ -18,7 +18,10 @@ const formDataSchema = z.object({
   password: z.string().min(3),
 });
 
-export const signInAction = async (state: unknown, formData: FormData) => {
+export const signInAction = async (
+  state: SignInFormState,
+  formData: FormData,
+) => {
   const data = Object.fromEntries(formData.entries());
 
   const result = formDataSchema.safeParse(data);
