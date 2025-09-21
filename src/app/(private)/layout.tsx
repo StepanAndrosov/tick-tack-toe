@@ -10,7 +10,7 @@ export default async function PrivateLayout({
 }) {
   const { session } = await sessionService.verifySession();
   return (
-    <div>
+    <div className="flex flex-col grow">
       <header className="px-10 py-4 flex gap-4 items-center justify-between border-b border-b-primary/50">
         <div className="text-lg font-semibold">Tik-tak-toe online</div>
         <div className="flex items-center gap-2">

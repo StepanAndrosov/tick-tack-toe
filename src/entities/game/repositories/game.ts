@@ -44,7 +44,8 @@ function dbGameToGameEntity(game: Game & { players: User[], winner?: User | null
                 id: game.id,
                 creator,
                 players: game.players,
-                status: game.status
+                status: game.status,
+                field: fieldSchema.parse(game.field)
             } satisfies GameIdle
         }
         case 'in_progress':

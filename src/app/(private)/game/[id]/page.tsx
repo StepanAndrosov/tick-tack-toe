@@ -1,3 +1,5 @@
+import { Game } from "@/features/game/server";
+
 export default async function Page({
   params,
 }: {
@@ -5,5 +7,9 @@ export default async function Page({
 }) {
   const { id } = await params;
 
-  return <div>game {id}</div>;
+  return (
+    <main className="flex flex-col grow pt-10 lg:pt-24 max-w-[600px] mx-auto">
+      <Game gameId={id} />
+    </main>
+  );
 }
