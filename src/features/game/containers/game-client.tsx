@@ -2,10 +2,10 @@
 
 import { GameLayout } from "../ui/layout";
 import { GamePlayers } from "../ui/players";
-
 import { GameStatus } from "../ui/status";
 import { GameField } from "../ui/field";
 import { GameDomain } from "@/entities/game";
+import { useEffect, useState } from "react";
 
 export function GameClient({
   defaultGame,
@@ -25,6 +25,7 @@ export function GameClient({
     field: [null, null, null, "X", "O", "O", null, null, null],
     status: "in_progress",
   };
+
   return (
     <GameLayout
       players={<GamePlayers game={game} />}
