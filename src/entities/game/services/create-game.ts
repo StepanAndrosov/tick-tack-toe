@@ -16,6 +16,7 @@ export async function createGame(player: Player) {
         id: cuid(),
         creator: player,
         status: 'idle',
+        field: Array(9).fill(null),
         players: []
     })
 
